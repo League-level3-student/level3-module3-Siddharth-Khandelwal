@@ -32,82 +32,124 @@ import java.util.Base64;
 
 public class _01_StringMethods {
 
-    // Given Strings s1 and s2, return the longer String
-    public static String longerString(String s1, String s2) {
-        return null;
-    }
+	// Given Strings s1 and s2, return the longer String
+	public static String longerString(String s1, String s2) {
+		if (s1.length() >= s2.length()) {
+			return s1;
+		}
+		return s2;
+	}
 
-    // If String s contains the word "underscores", change all of the spaces
-    // to underscores
-    public static String formatSpaces(String s) {
-        return null;
-    }
+	// If String s contains the word "underscores", change all of the spaces
+	// to underscores
+	public static String formatSpaces(String s) {
+		String n = "";
+		if (s.contains("underscores")) {
+			System.out.println("true");
+			n = s.replace(' ', '_');
+			return n;
+		}
+		return s;
+	}
 
-    // Return the name of the person whose LAST name would appear first if they
-    // were in alphabetical order.
-    // You cannot assume there are no extra spaces around the name, but you can
-    // assume there is only one space between the first and last name
-    public static String lineLeader(String s1, String s2, String s3) {
-        return null;
-    }
+	// Return the name of the person whose LAST name would appear first if they
+	// were in alphabetical order.
+	// You cannot assume there are no extra spaces around the name, but you can
+	// assume there is only one space between the first and last name
+	public static String lineLeader(String s1, String s2, String s3) {
+		int greatest = 0;
+		s1.trim();
+		s2.trim();
+		s3.trim();
+		String[] name1 = s1.split(" ");
+		String[] name2 = s2.split(" ");
+		String[] name3 = s3.split(" ");
+		String last1 = name1[1];
+		String last2 = name2[1];
+		String last3 = name3[1];
+		char fl1 = last1.charAt(0);
+		char fl2 = last2.charAt(0);
+		char fl3 = last3.charAt(0);
+		int num1 = Character.getNumericValue(fl1);
+		int num2 = Character.getNumericValue(fl2);
+		int num3 = Character.getNumericValue(fl3);
+		Integer[] bob = new Integer[3];
+		bob[0] = num1;
+		bob[1] = num2;
+		bob[2] = num3;
+		for (int i = 0; i < bob.length-1; i++) {
+			if(bob[i]>bob[i+1]) {
+				greatest = i+1;
+			}
+		}
+if(greatest ==  0) {
+		return s1;
+	}
+if(greatest ==  1) {
+	return s2;
+}
+return s3;
+	}
+	
 
-    // Return the sum of all numerical digits in the String
-    public static int numeralSum(String s) {
-        return 0;
-    }
 
-    // Return the number of times String substring appears in String s
-    public static int substringCount(String s, String substring) {
-        return 0;
-    }
+	// Return the sum of all numerical digits in the String
+	public static int numeralSum(String s) {
+		return 0;
+	}
 
-    // Call Utilities.encrypt at the bottom of this file to encrypt String s
-    public static String encrypt(String s, char key) {
-        return null;
-    }
+	// Return the number of times String substring appears in String s
+	public static int substringCount(String s, String substring) {
+		return 0;
+	}
 
-    // Call Utilities.decrypt at the bottom of this file to decrypt the
-    // cyphertext (encrypted text)
-    public static String decrypt(String s, char key) {
-        return null;
-    }
+	// Call Utilities.encrypt at the bottom of this file to encrypt String s
+	public static String encrypt(String s, char key) {
+		return null;
+	}
 
-    // Return the number of words in String s that end with String substring
-    // You can assume there are no punctuation marks between words
-    public static int wordsEndsWithSubstring(String s, String substring) {
-        return 0;
-    }
+	// Call Utilities.decrypt at the bottom of this file to decrypt the
+	// cyphertext (encrypted text)
+	public static String decrypt(String s, char key) {
+		return null;
+	}
 
-    // Given String s, return the number of characters between the first
-    // occurrence of String substring and the final occurrence
-    // You can assume that substring will appear at least twice
-    public static int distance(String s, String substring) {
-        return 0;
-    }
+	// Return the number of words in String s that end with String substring
+	// You can assume there are no punctuation marks between words
+	public static int wordsEndsWithSubstring(String s, String substring) {
+		return 0;
+	}
 
-    // Return true if String s is a palindrome
-    // palindromes are words or phrases are read the same forward as backward.
-    // HINT: ignore/remove all punctuation and spaces in the String
-    public static boolean palindrome(String s) {
-        return true;
-    }
+	// Given String s, return the number of characters between the first
+	// occurrence of String substring and the final occurrence
+	// You can assume that substring will appear at least twice
+	public static int distance(String s, String substring) {
+		return 0;
+	}
+
+	// Return true if String s is a palindrome
+	// palindromes are words or phrases are read the same forward as backward.
+	// HINT: ignore/remove all punctuation and spaces in the String
+	public static boolean palindrome(String s) {
+		return true;
+	}
 }
 
 class Utilities {
-    // This basic encryption scheme is called single-byte xor. It takes a
-    // single byte and uses exclusive-or on every character in the String.
-    public static String encrypt(byte[] plaintext, byte key) {
-        for (int i = 0; i < plaintext.length; i++) {
-            plaintext[i] = (byte) (plaintext[i] ^ key);
-        }
-        return Base64.getEncoder().encodeToString(plaintext);
-    }
+	// This basic encryption scheme is called single-byte xor. It takes a
+	// single byte and uses exclusive-or on every character in the String.
+	public static String encrypt(byte[] plaintext, byte key) {
+		for (int i = 0; i < plaintext.length; i++) {
+			plaintext[i] = (byte) (plaintext[i] ^ key);
+		}
+		return Base64.getEncoder().encodeToString(plaintext);
+	}
 
-    public static String decrypt(String cyphertext, byte key) {
-        byte[] b = Base64.getDecoder().decode(cyphertext);
-        for (int i = 0; i < b.length; i++) {
-            b[i] = (byte) (b[i] ^ key);
-        }
-        return new String(b);
-    }
+	public static String decrypt(String cyphertext, byte key) {
+		byte[] b = Base64.getDecoder().decode(cyphertext);
+		for (int i = 0; i < b.length; i++) {
+			b[i] = (byte) (b[i] ^ key);
+		}
+		return new String(b);
+	}
 }
