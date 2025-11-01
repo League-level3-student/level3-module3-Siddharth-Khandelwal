@@ -45,7 +45,6 @@ public class _01_StringMethods {
 	public static String formatSpaces(String s) {
 		String n = "";
 		if (s.contains("underscores")) {
-			System.out.println("true");
 			n = s.replace(' ', '_');
 			return n;
 		}
@@ -57,50 +56,61 @@ public class _01_StringMethods {
 	// You cannot assume there are no extra spaces around the name, but you can
 	// assume there is only one space between the first and last name
 	public static String lineLeader(String s1, String s2, String s3) {
-		int greatest = 0;
-		s1.trim();
-		s2.trim();
-		s3.trim();
-		String[] name1 = s1.split(" ");
-		String[] name2 = s2.split(" ");
-		String[] name3 = s3.split(" ");
+		String n1 = s1.trim();
+		String n2= s2.trim();
+		String n3= s3.trim();
+		
+		String[] name1 = n1.split(" ");
+		String[] name2 = n2.split(" ");
+		String[] name3 = n3.split(" ");
 		String last1 = name1[1];
 		String last2 = name2[1];
 		String last3 = name3[1];
-		char fl1 = last1.charAt(0);
-		char fl2 = last2.charAt(0);
-		char fl3 = last3.charAt(0);
-		int num1 = Character.getNumericValue(fl1);
-		int num2 = Character.getNumericValue(fl2);
-		int num3 = Character.getNumericValue(fl3);
-		Integer[] bob = new Integer[3];
-		bob[0] = num1;
-		bob[1] = num2;
-		bob[2] = num3;
-		for (int i = 0; i < bob.length-1; i++) {
-			if(bob[i]>bob[i+1]) {
-				greatest = i+1;
+		int n2ton3 = 0;
+int n1ton3 = 0;
+		int n1ton2 = last1.compareToIgnoreCase(last2);
+		if(n1ton2 > 0) {
+			n2ton3 = last2.compareToIgnoreCase(last3);
+			if(n2ton3 >0) {
+			return n3;
+		}
+			else {
+				return n2;
+			}
+		}else {
+			n1ton3 = last1.compareToIgnoreCase(last3);
+			if(n1ton3 >0) {
+				return n3;
+			}else {
+				return n1;
 			}
 		}
-if(greatest ==  0) {
-		return s1;
+		
+		
 	}
-if(greatest ==  1) {
-	return s2;
-}
-return s3;
-	}
-	
-
 
 	// Return the sum of all numerical digits in the String
 	public static int numeralSum(String s) {
-		return 0;
+		int tot = 0;
+
+		for (int i = 0; i < s.length(); i++) {
+			int j = s.charAt(i);
+			if (Character.isDigit(j) == true) {
+				int r = Character.getNumericValue(j);
+				tot += r;
+			}
+		}
+		return tot;
 	}
 
 	// Return the number of times String substring appears in String s
 	public static int substringCount(String s, String substring) {
-		return 0;
+		int n =0;
+		while(s.indexOf(substring)>-1) {
+			n++;
+			s=s.substring(s.indexOf(substring)+substring.length());
+		}
+		return n;
 	}
 
 	// Call Utilities.encrypt at the bottom of this file to encrypt String s
