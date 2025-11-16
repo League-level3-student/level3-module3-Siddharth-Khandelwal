@@ -59,7 +59,7 @@ public class _01_StringMethods {
 		String n1 = s1.trim();
 		String n2= s2.trim();
 		String n3= s3.trim();
-		
+
 		String[] name1 = n1.split(" ");
 		String[] name2 = n2.split(" ");
 		String[] name3 = n3.split(" ");
@@ -67,13 +67,13 @@ public class _01_StringMethods {
 		String last2 = name2[1];
 		String last3 = name3[1];
 		int n2ton3 = 0;
-int n1ton3 = 0;
+		int n1ton3 = 0;
 		int n1ton2 = last1.compareToIgnoreCase(last2);
 		if(n1ton2 > 0) {
 			n2ton3 = last2.compareToIgnoreCase(last3);
 			if(n2ton3 >0) {
-			return n3;
-		}
+				return n3;
+			}
 			else {
 				return n2;
 			}
@@ -85,8 +85,8 @@ int n1ton3 = 0;
 				return n1;
 			}
 		}
-		
-		
+
+
 	}
 
 	// Return the sum of all numerical digits in the String
@@ -115,19 +115,47 @@ int n1ton3 = 0;
 
 	// Call Utilities.encrypt at the bottom of this file to encrypt String s
 	public static String encrypt(String s, char key) {
-		return null;
+		byte[] bob = s.getBytes();
+		byte bobert =(byte) key;
+		String bobertson = Utilities.encrypt(bob, bobert);
+		return bobertson;
 	}
 
 	// Call Utilities.decrypt at the bottom of this file to decrypt the
 	// cyphertext (encrypted text)
 	public static String decrypt(String s, char key) {
-		return null;
+		return Utilities.decrypt(s, (byte) key);
+
 	}
 
 	// Return the number of words in String s that end with String substring
 	// You can assume there are no punctuation marks between words
 	public static int wordsEndsWithSubstring(String s, String substring) {
-		return 0;
+		String[] array = s.split(" ");
+		int charMatchCount = 0;
+		int endsWithCount = 0;
+		int lenSubstring = substring.length();
+
+		for (int i = 0; i < array.length; i++) {
+			int index = array[i].length()-lenSubstring;
+			if(index < 0) {
+				continue;
+			}
+			System.out.println(index);
+			for (int j = 0; j < lenSubstring; j++) {
+				if(array[i].charAt(index+j)==substring.charAt(j)) {
+					System.out.println("true");
+					charMatchCount++;
+					if(charMatchCount == lenSubstring) {
+						endsWithCount++;
+						System.out.println("****           " + array[i]);
+					}
+				}
+			}
+			charMatchCount = 0; 
+		}
+
+		return endsWithCount;
 	}
 
 	// Given String s, return the number of characters between the first
@@ -141,25 +169,41 @@ int n1ton3 = 0;
 	// palindromes are words or phrases are read the same forward as backward.
 	// HINT: ignore/remove all punctuation and spaces in the String
 	public static boolean palindrome(String s) {
+		for(int i = 0, j =s.length()-1     ;   i<= j     ;       i++, j--) {
+			if(Character.isAlphabetic(s.charAt(i))==false) {
+				i++;
+			}
+			if(Character.isAlphabetic(s.charAt(j))==false) {
+				j--;
+			}
+			if(Character.toLowerCase(s.charAt(i)) != Character.toLowerCase( s.charAt(j))) {
+
+				return false;
+			}
+
+
+			
+		}
 		return true;
 	}
 }
-
-class Utilities {
-	// This basic encryption scheme is called single-byte xor. It takes a
-	// single byte and uses exclusive-or on every character in the String.
-	public static String encrypt(byte[] plaintext, byte key) {
-		for (int i = 0; i < plaintext.length; i++) {
-			plaintext[i] = (byte) (plaintext[i] ^ key);
+	class Utilities {
+		// This basic encryption scheme is called single-byte xor. It takes a
+		// single byte and uses exclusive-or on every character in the String.
+		public static String encrypt(byte[] plaintext, byte key) {
+			for (int i = 0; i < plaintext.length; i++) {
+				plaintext[i] = (byte) (plaintext[i] ^ key);
+			}
+			return Base64.getEncoder().encodeToString(plaintext);
 		}
-		return Base64.getEncoder().encodeToString(plaintext);
+
+		public static String decrypt(String cyphertext, byte key) {
+			byte[] b = Base64.getDecoder().decode(cyphertext);
+			for (int i = 0; i < b.length; i++) {
+				b[i] = (byte) (b[i] ^ key);
+			}
+			return new String(b);
+		}
 	}
 
-	public static String decrypt(String cyphertext, byte key) {
-		byte[] b = Base64.getDecoder().decode(cyphertext);
-		for (int i = 0; i < b.length; i++) {
-			b[i] = (byte) (b[i] ^ key);
-		}
-		return new String(b);
-	}
-}
+
